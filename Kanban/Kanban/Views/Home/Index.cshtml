@@ -1,31 +1,63 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using Kanban.Models
+@model List<Atividade>
+
+@{
+    var viewBagErro = ViewBag.Erros;
+    List<Status> status = ViewBag.Status;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<ul style="text-align:center; margin-top: 30px; margin-bottom: 30px" class="nav nav-tabs">
+    @foreach (Status item in status)
+    {
+        <li class="nav-item">
+            @Html.ActionLink(item.DescricaoStatus, "Index", "Home", new { id = item.IDStatus }, new { @class = "nav-link" })
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+        </li>
+    }
+</ul>
+
+<h1>@viewBagErro</h1>
+
+<div>
+    <table class="table table-hover table-striped" style="margin-top:30px">
+        <tr>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Requisito</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach(Atividade atividadeCadastrado in Model)
+        {
+        <tr>
+            <td> @atividadeCadastrado.IDAtividade</td>
+            <td> @atividadeCadastrado.TituloAtividade</td>
+            <td> @atividadeCadastrado.DescricaoAtividade</td>
+            @if (atividadeCadastrado.RequisitoAtividade == 0)
+            {
+                <td></td>
+            }
+            else
+            {
+                <td> @atividadeCadastrado.RequisitoAtividade</td>
+            }
+            <td> @atividadeCadastrado.Status.DescricaoStatus</td>
+            <td>
+                @Html.ActionLink("Voltar P/ Etapa Anterior", "EtapaAnterior", "Home",
+                      new { id = atividadeCadastrado.IDAtividade }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Enviar P/ Próxima Etapa", "ProximaEtapa", "Home",
+                      new { id = atividadeCadastrado.IDAtividade }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Excluir Atividade", "ExcluirAtividade", "Home",
+                      new { id = atividadeCadastrado.IDAtividade }, null)
+            </td>
+        </tr>
+        }
+</table>
 </div>

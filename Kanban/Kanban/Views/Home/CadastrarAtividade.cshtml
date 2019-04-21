@@ -1,0 +1,45 @@
+﻿@model Kanban.Models.Atividade
+
+<div>
+    @using (Html.BeginForm("CadastrarAtividade", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        <fieldset>
+            <legend style="margin-left:20px">Cadastrar Atividade</legend>
+
+            <div class="form-group" style="margin-left:40px">
+
+                @Html.LabelFor(model => model.TituloAtividade, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.TituloAtividade, new { @class = "form-control", @placeholder = "Título da Atividade" })
+                    @Html.ValidationMessageFor(model => model.TituloAtividade, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left:40px">
+                @Html.LabelFor(model => model.DescricaoAtividade, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.DescricaoAtividade, new { @class = "form-control", @rows = 4, @placeholder = "Descrição da Atividade" })
+                    @Html.ValidationMessageFor(model => model.DescricaoAtividade, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-left:40px">
+
+                @Html.LabelFor(model => model.RequisitoAtividade, new { @class = "control-label col-sm-3" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.RequisitoAtividade, new { @class = "form-control", @placeholder = "Número da Atividade Anterior" })
+                    @Html.ValidationMessageFor(model => model.RequisitoAtividade, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </fieldset>
+        <br>
+        <div class="form-group" style="margin-left:170px">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Cadastrar Atividade" class="btn btn-primary" />
+                <input type="reset" value="Resetar" class="btn btn-secondary" />
+            </div>
+        </div>
+    }
+</div>
+

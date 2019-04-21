@@ -10,7 +10,7 @@ namespace Kanban.DAL
     {
         private static Contexto contexto = SingletonContext.GetInstance();
 
-        public void Adicionar(Atividade atividade)
+        public static void Adicionar(Atividade atividade)
         {
             if (atividade != null)
             {
@@ -19,29 +19,29 @@ namespace Kanban.DAL
             }
         }
 
-        public List<Atividade> ListarTodos()
+        public static List<Atividade> ListarTodos()
         {
             return contexto.Atividades.ToList();
         }
 
-        public void Atualizar(Atividade atividade)
+        public static void Atualizar(Atividade atividade)
         {
             contexto.Entry(atividade).State = System.Data.Entity.EntityState.Modified;
             contexto.SaveChanges();
         }
 
-        public void Remover(int id)
+        public static void Remover(int id)
         {
             contexto.Atividades.Remove(BuscarPorID(id));
             contexto.SaveChanges();
         }
 
-        public Atividade BuscarPorID(int? id)
+        public static Atividade BuscarPorID(int? id)
         {
             return contexto.Atividades.Find(id);
         }
 
-        public Atividade BuscarPorNome(string atividade)
+        public static Atividade BuscarPorNome(string atividade)
         {
             return contexto.Atividades.FirstOrDefault(x => x.TituloAtividade.ToLower().Contains(atividade.ToLower()));
         }
