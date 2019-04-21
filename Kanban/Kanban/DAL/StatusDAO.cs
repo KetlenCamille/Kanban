@@ -45,7 +45,6 @@ namespace Kanban.DAL
         {
             return contexto.Status.FirstOrDefault(x => x.DescricaoStatus.ToLower().Contains(status.ToLower()));
         }
-    }
-    c 
+    
     }
 }
